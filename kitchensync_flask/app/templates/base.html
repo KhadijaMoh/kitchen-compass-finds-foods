@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="{{ url_for('main.index') }}" class="brand-logo">KitchenSync</a>
+    <nav class="nav-wrapper">
+        <div class="container">
             <ul class="nav-links">
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
                 {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('recipe.list') }}">Recipes</a></li>
                     <li><a href="{{ url_for('pantry.list') }}">Pantry</a></li>
+                    <li><a href="{{ url_for('meal_plan.view') }}">Meal Plan</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
@@ -28,15 +29,17 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="container">
         <p>&copy; 2025 KitchenSync. All rights reserved.</p>
     </footer>
 </body>
